@@ -18,7 +18,10 @@ export const state = {
         mode: null, // 'practice' (AI) | 'multichoice' (4지선다)
         currentWord: null,
         currentQuizId: null,
+        maxQuestions: 10,
         hintUrl: null,
+        correctVideoUrl: null,
+        currentOptions: [],
         stream: null,
         mediaRecorder: null,
         chunks: [],
@@ -101,8 +104,10 @@ export const elements = {
     // Status
     gameProgressBar: document.getElementById('game-progress-bar'),
     gameProgressMsg: document.getElementById('game-progress-msg'),
+    gameSelectCountScreen: document.getElementById('game-select-count-screen'),
     gameTotalScore: document.getElementById('game-total-score'),
     gameLevelBadge: document.getElementById('game-level-badge'),
+    gameHeaderStatus: document.getElementById('game-header-status'),
     scoreValue: document.getElementById('game-score-value'),
     scoreCircle: document.getElementById('game-score-circle'),
     resultTitle: document.getElementById('game-result-title'),

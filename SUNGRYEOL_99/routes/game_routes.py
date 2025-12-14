@@ -1,4 +1,5 @@
 import logging
+import time
 import os
 import random
 import threading
@@ -25,13 +26,13 @@ def _run_game_evaluation_task(file_id: str, task_data: Dict[str, Any], target_wo
         # translate_sign_language를 사용하여 비디오 분석
         video_path = task_data['original_path']
         output_dir = os.path.dirname(video_path)  # 업로드된 파일과 같은 디렉토리에 결과 저장
-        
+
         translation_result = translator.translate_sign_language(
             video_path=video_path,
             output_dir=output_dir,
             progress_callback=lambda p, m: update_task_status(file_id, p, m)
         )
-        
+
         if not translation_result.success:
             # 번역 실패 시
             update_task_status(
@@ -41,11 +42,11 @@ def _run_game_evaluation_task(file_id: str, task_data: Dict[str, Any], target_wo
                 error=translation_result.error or '알 수 없는 오류'
             )
             return
-        
+
         # 인식된 단어와 정답 비교
         recognized_word = translation_result.word
         is_correct = (recognized_word == target_word)
-        
+
         # 게임 결과 생성 (GameResult와 호환되는 형태)
         game_result = {
             'success': is_correct,
@@ -54,9 +55,9 @@ def _run_game_evaluation_task(file_id: str, task_data: Dict[str, Any], target_wo
             'similarity': 1.0 if is_correct else 0.0,
             'processing_time': translation_result.processing_time
         }
-        
+
         result_message = f"결과: {recognized_word}" + (" (정답!)" if is_correct else f" (정답: {target_word})")
-        
+
         update_task_status(
             file_id, 100,
             result_message,
@@ -112,7 +113,8 @@ def get_multichoice_quiz() -> Response:
             'options': [
                 {
                     'id': opt['id'],
-                    'video_url': f'/api/video/dictionary/{opt["id"]}'
+                    'video_url': f'/api/video/dictionary/{opt["id"]}',
+                    'word': opt['word']
                 } for opt in options
             ]
         }

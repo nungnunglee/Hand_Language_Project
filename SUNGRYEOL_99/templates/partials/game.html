@@ -63,6 +63,43 @@
             </div>
     </div>
 
+    <div id="game-select-count-screen" class="hidden py-6 animate-fade-in">
+        <div class="mb-10 relative inline-block">
+            <span class="block text-xs font-bold text-indigo-500 tracking-widest uppercase mb-1">Step 2</span>
+            <h2 class="text-3xl font-black text-slate-800 tracking-tight"></h2>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8 max-w-lg mx-auto">
+            <button onclick="startGameWithCount(3)" class="p-6 rounded-2xl bg-white border-2 border-slate-100 hover:border-indigo-400 hover:bg-indigo-50 transition-all shadow-sm group">
+                <span class="block text-2xl font-black text-slate-300 group-hover:text-indigo-600 mb-1">3문제</span>
+                <span class="text-xs text-slate-400">가볍게 몸풀기</span>
+            </button>
+
+            <button onclick="startGameWithCount(5)" class="p-6 rounded-2xl bg-white border-2 border-slate-100 hover:border-indigo-400 hover:bg-indigo-50 transition-all shadow-sm group">
+                <span class="block text-2xl font-black text-slate-300 group-hover:text-indigo-600 mb-1">5문제</span>
+                <span class="text-xs text-slate-400">적당한 난이도</span>
+            </button>
+
+            <button onclick="startGameWithCount(10)" class="p-6 rounded-2xl bg-white border-2 border-slate-100 hover:border-indigo-400 hover:bg-indigo-50 transition-all shadow-sm group">
+                <span class="block text-2xl font-black text-slate-300 group-hover:text-indigo-600 mb-1">10문제</span>
+                <span class="text-xs text-slate-400">완벽 마스터</span>
+            </button>
+        </div>
+
+        <div class="text-center mb-8">
+             <p class="text-sm text-slate-400 mb-2">또는 직접 입력</p>
+             <div class="inline-flex items-center gap-2 bg-white px-4 py-2 rounded-xl border border-slate-200">
+                 <input type="number" id="custom-count-input" min="2" max="20" value="2" class="w-12 text-center font-bold text-slate-700 outline-none">
+                 <span class="text-slate-500 text-sm">문제</span>
+                 <button onclick="startGameWithCustomCount()" class="ml-2 bg-slate-100 hover:bg-indigo-500 hover:text-white px-3 py-1 rounded-lg text-xs font-bold transition-colors">시작</button>
+             </div>
+        </div>
+
+        <button onclick="backToGameMenu()" class="text-slate-400 hover:text-slate-600 font-bold text-sm flex items-center justify-center gap-2 mx-auto py-2 px-4 rounded-full hover:bg-slate-100 transition-colors">
+            <i class="fa-solid fa-arrow-left"></i> 모드 다시 선택
+        </button>
+    </div>
+
     <div id="game-quiz-screen" class="hidden">
         <div class="relative bg-white/80 backdrop-blur rounded-2xl p-8 mb-6 shadow-sm border border-slate-100 overflow-hidden group">
             <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-orange-400 to-red-500"></div>
@@ -119,14 +156,19 @@
             <div id="game-progress-bar" class="h-full bg-orange-500 transition-all duration-300" style="width: 0%"></div>
         </div>
     </div>
-
+<!--    2025/12/14 수정-->
     <div id="game-result-screen" class="hidden py-8" aria-live="polite">
         <div id="game-score-circle" class="w-44 h-44 rounded-full border-[12px] mx-auto flex flex-col items-center justify-center mb-8 shadow-xl bg-white transition-colors duration-500">
             <span class="text-slate-400 text-xs font-bold uppercase tracking-wider">Score</span>
             <span id="game-score-value" class="mt-1 text-5xl font-black tracking-tight"></span>
         </div>
         <h3 id="game-result-title" class="text-3xl font-bold mb-3 text-slate-800"></h3>
-        <p id="game-result-desc" class="text-slate-500 mb-10 px-8 break-keep leading-relaxed"></p>
+        <p id="game-result-desc" class="text-slate-500 mb-8 px-8 break-keep leading-relaxed"></p>
+
+        <button id="btn-view-answer" class="hidden mb-6 mx-auto bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-indigo-600 px-5 py-2 rounded-full text-sm font-bold transition-all flex items-center gap-2">
+            <i class="fa-solid fa-play-circle text-lg"></i>
+            정답 영상 확인하기
+        </button>
 
         <div class="flex gap-3 justify-center w-full">
             <button onclick="initGameRound()" class="flex-1 py-4 bg-white border border-slate-200 text-slate-600 font-bold rounded-2xl hover:bg-slate-50 transition-colors">
